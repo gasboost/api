@@ -29,24 +29,36 @@ jobs:
           set -eu
           name=$(node -p 'require("./packages/gemini/package.json").name')
           version=$(node -p 'require("./packages/gemini/package.json").version')
-          if npm view "$name@$version" version >/dev/null 2>&1; then
+          npm_view_output=$(mktemp)
+          if npm view "$name@$version" version >"$npm_view_output" 2>&1; then
             echo "$name@$version is already published"
             echo "publish=false" >> "$GITHUB_OUTPUT"
-          else
+          elif grep -q 'E404' "$npm_view_output"; then
+            cat "$npm_view_output"
             echo "$name@$version is not published"
             echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            cat "$npm_view_output"
+            echo "Failed to check $name@$version on npm registry" >&2
+            exit 1
           fi
       - id: check-openai
         run: |
           set -eu
           name=$(node -p 'require("./packages/openai/package.json").name')
           version=$(node -p 'require("./packages/openai/package.json").version')
-          if npm view "$name@$version" version >/dev/null 2>&1; then
+          npm_view_output=$(mktemp)
+          if npm view "$name@$version" version >"$npm_view_output" 2>&1; then
             echo "$name@$version is already published"
             echo "publish=false" >> "$GITHUB_OUTPUT"
-          else
+          elif grep -q 'E404' "$npm_view_output"; then
+            cat "$npm_view_output"
             echo "$name@$version is not published"
             echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            cat "$npm_view_output"
+            echo "Failed to check $name@$version on npm registry" >&2
+            exit 1
           fi
 
   publish-gemini:

@@ -13,6 +13,11 @@
     "dist",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gasboost/api.git",
+    "directory": "packages/gemini"
+  },
   "publishConfig": {
     "access": "public"
   },
