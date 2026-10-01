@@ -10,7 +10,6 @@ export type CreateGeminiInteractionRequest = {
   tools?: GeminiInteractionTool[];
   response_format?: GeminiInteractionResponseFormat;
   response_mime_type?: string;
-  stream?: boolean;
   store?: boolean;
   background?: boolean;
   generation_config?: GeminiInteractionGenerationConfig;
@@ -68,6 +67,7 @@ export type GeminiJsonSchema = {
 };
 
 export type GeminiInteractionModel =
+  | (string & {})
   | "gemini-2.5-computer-use-preview-10-2025"
   | "gemini-2.5-flash"
   | "gemini-2.5-flash-image"
@@ -85,6 +85,7 @@ export type GeminiInteractionModel =
   | "gemini-3.1-flash-image-preview"
   | "gemini-3.1-flash-lite-preview"
   | "gemini-3.1-flash-tts-preview"
+  | "gemini-3.8-flash"
   | "gemini-3.5-flash-lite"
   | "lyria-3-clip-preview"
   | "lyria-3-pro-preview";
@@ -295,7 +296,7 @@ export type GeminiInteractionStep =
   | GeminiInteractionModelOutputStep
   | GeminiInteractionThoughtStep
   | GeminiInteractionFunctionCallStep
-  | GeminiInteractionFunctionResponseStep
+  | GeminiInteractionFunctionResultStep
   | GeminiInteractionFileSearchResultStep
   | GeminiInteractionGoogleMapsResultStep;
 
@@ -322,8 +323,9 @@ export type GeminiInteractionFunctionCallStep = {
   arguments?: GeminiJsonObject;
 };
 
-export type GeminiInteractionFunctionResponseStep = {
-  type: "function_response";
+export type GeminiInteractionFunctionResultStep = {
+  type: "function_result";
+  name?: string;
   call_id: string;
   signature?: string;
   result: GeminiFunctionResultSubcontent[] | string;
