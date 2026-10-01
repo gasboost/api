@@ -24,6 +24,15 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
 
+  packages/openai:
+    devDependencies:
+      '@gasboost/fake-node':
+        specifier: ^0.2.0
+        version: 0.2.0(date-fns@4.4.0)
+      '@types/google-apps-script':
+        specifier: ^2.0.13
+        version: 2.0.13
+
 packages:
 
   '@gasboost/fake-core@0.2.0':
