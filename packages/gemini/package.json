@@ -17,7 +17,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --exclude \"src/**/*.integration.test.ts\"",
     "test:integration": "set -a; [ -f .env ] && . ./.env; set +a; vitest run src/GeminiInteractionApi.integration.test.ts",
