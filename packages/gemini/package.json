@@ -1,0 +1,30 @@
+{
+  "name": "@gasboost/gemini",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --exclude \"src/**/*.integration.test.ts\"",
+    "test:integration": "set -a; [ -f .env ] && . ./.env; set +a; vitest run src/GeminiInteractionApi.integration.test.ts",
+    "pack:smoke": "pnpm build && node scripts/pack-smoke.mjs"
+  },
+  "devDependencies": {
+    "@gasboost/fake-node": "^0.2.0",
+    "@types/google-apps-script": "^2.0.13"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  }
+}
